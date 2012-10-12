@@ -1,0 +1,268 @@
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kien/ctrlp.vim.git'
+Bundle 'tpope/vim-commentary.git'
+Bundle 'scrooloose/nerdtree.git'
+Bundle 'tpope/vim-surround.git'
+Bundle 'tpope/vim-fugitive.git'
+Bundle 'godlygeek/tabular.git'
+Bundle 'tpope/vim-eunuch.git'
+Bundle 'mileszs/ack.vim.git'
+Bundle 'SirVer/ultisnips'
+Bundle 'mattn/zencoding-vim.git'
+Bundle 'tpope/vim-rake.git'
+Bundle 'kchmck/vim-coffee-script.git'
+Bundle 'derekwyatt/vim-scala.git'
+Bundle 'orftz/sbd.vim'
+Bundle 'groenewege/vim-less'
+Bundle 'tpope/vim-endwise.git'
+
+let mapleader=";"           "Changes Leader key into a comma instead of a backslash
+" noremap , ;
+
+"------  Visual Options  ------
+set guioptions-=T          "remove toolbar
+syntax on                  "Enables syntax highlighting
+set nu                     "Enable Line Numbers
+set nowrap                 "Disable word wrap
+set vb                     "Visual bell instead of beeps
+set ruler                  "Displays cursor position on bottom right of screen
+set laststatus=2           "show the status line All the time
+set statusline=%<%f\ %h%m%r%=%{fugitive#statusline()}\ \ %-14.(%l,%c%V%)\ %P
+
+"------  Behavior  ------
+set backspace=indent,eol,start " backspace works like normal apps
+set tabstop=2                  " tab = 4 spaces
+set shiftwidth=2               " Indent to 2 spaces
+set hidden                     " Switch between unsaved buffers w/o needing to save, preserves history
+filetype indent on             " Syntax Highlight
+filetype plugin on             " Needed for snipMate
+set autoindent                 " Autoindent
+set expandtab                  " Use spaces instead of tabs
+set nobackup                   " no backup files
+set nowritebackup              " only in case you don't want a backup file while editing
+set noswapfile                 " no swap files
+"Ignore these files when completing names
+set wildignore=*/target/*,.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,tmp/*
+
+"------  Searching  ------
+set incsearch               "Search while typing
+set ignorecase              "Case Insensitive Searching
+set smartcase               "Lowercase = case insensitive, any uppercase = case sensitive
+set hlsearch                "Highlight all search results
+
+set timeoutlen=400          "default is 1000
+
+" disable ex mode, I do this too often by mistake
+noremap Q q
+
+"cmd line mode
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <a-left> <S-left>
+cnoremap <a-right> <S-right>
+
+"Following line clears the search highlights when pressing space
+nnoremap <space> :nohlsearch<cr>
+
+"navigation and pwd mappings
+noremap  <leader>cd       :lcd %:h<cr>
+map      <leader>e        :edit %h
+map      <leader>w        :write %h
+cnoremap %h               <C-R>=expand('%:h').'/'<cr>
+cnoremap %t               <C-R>=expand('%:t').'/'<cr>
+
+"jump back and forth between buffers
+noremap  <leader><leader> <C-^>
+
+"quick save and back to normal mode
+inoremap <c-f>            <esc>:w<cr>
+noremap  <c-f>            :w<cr>
+inoremap kj               <esc>
+
+"edit vimrc
+map      <leader>ev       :e $MYVIMRC<cr>
+map      <leader>sv       :source $MYVIMRC<cr>
+
+" ctrl v in insert mode pastes
+imap <c-v> <c-r>"
+
+"ulti snips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsListSnippets="<s-space>"
+let g:UltiSnipsSnippetDirectories=["providedsnippets", "mysnippets"]
+
+"add local tags location
+set tags+=~/code/rails/tags
+
+"easy visual mode indenting
+vnoremap < <gv
+vnoremap > >gv
+
+"Window Navigation with leader key
+function! WinMove(key) 
+  let t:curwin = winnr()
+  exec "wincmd ".a:key
+  if (t:curwin == winnr()) "we havent moved
+    if (match(a:key,'[jk]')) "were we going up/down
+      wincmd v
+    else 
+      wincmd s
+    endif
+    exec "wincmd ".a:key
+  endif
+endfunction
+ 
+map <leader>h              :call WinMove('h')<cr>
+map <leader>k              :call WinMove('k')<cr>
+map <leader>l              :call WinMove('l')<cr>
+map <leader>j              :call WinMove('j')<cr>
+map <leader>H              :wincmd H<cr>
+map <leader>K              :wincmd K<cr>
+map <leader>L              :wincmd L<cr>
+map <leader>J              :wincmd J<cr>
+
+"note these are inverted for up and left.
+" easy to think of as push, ie push left
+nmap <left>  :3wincmd <<cr>
+nmap <right> :3wincmd ><cr>
+nmap <up>    :3wincmd +<cr>
+nmap <down>  :3wincmd -<cr>
+
+map <leader>wc :wincmd q<cr>
+map <leader>wr <C-W>r
+
+"_____ Plugin mappings _____
+
+"ulti snips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsListSnippets="<s-space>"
+
+" controlp
+
+let g:ctrlp_map = '<leader>f'
+let g:ctrlp_cmd = 'CtrlP'
+
+let g:CommandTAcceptSelectionVSplitMap = ['L']
+let g:CommandTAcceptSelectionSplitMap  = ['J']
+
+" Nerd Tree
+noremap  <leader>ot       :NERDTreeToggle<cr>
+noremap  <leader>ct       :NERDTreeClose<cr>
+noremap  <leader>rt       :NERDTreeClose<cr><leader>cd:NERDTree<cr>
+noremap  <leader>cc       :NERDTreeFind<cr><C-W>l
+
+" Simple Buffer Close 
+nnoremap <silent> <leader>bc  :Sbd<cr>
+nnoremap <silent> <leader>bcc :Sbdm<cr>
+function! CloseAllBuffers()
+  :set noconfirm
+  :bufdo Sbdm 
+  :set confirm
+endfunction
+nnoremap <silent> <leader>cab :call CloseAllBuffers()<cr>
+
+" more intuitive completion c-y to choose !
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+
+if has("autocmd")
+   " use html and sass for grails
+ 	 autocmd BufNewFile,BufRead *.html.erb set ft=eruby.html
+	 autocmd BufNewFile,BufRead *.gsp set ft=html.gsp
+ 	 autocmd BufNewFile,BufRead RakeFile set ft=ruby
+
+   " dont highlight markdown
+   " autocmd BufNewFile,BufRead *.markdown set ft=markdown
+   " autocmd BufNewFile,BufRead *.markdown set wrap
+   " autocmd BufNewFile,BufRead *.markdown set lbr
+endif
+
+"experimenting with tabs again
+nnoremap <leader>te :tabedit<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>] :tabnext<cr>
+nnoremap <leader>[ :tabprev<cr>
+
+"------ Ruby Run Tests -------
+let g:tback=1
+function! RunSpecFile(filename)
+	:w
+  if g:tback == 1
+    exec "Silent tback bundle exec rspec ".a:filename
+  else
+    exec "!clear; bundle exec rspec ".a:filename
+  end
+endfunction
+function! RunLastSpecFile()
+	call RunSpecFile(g:grb_test_file)
+endfunction
+function! RunThisSpecFile()
+	let  g:grb_test_file=@%
+	call RunSpecFile(g:grb_test_file)
+endfunction
+
+" Run this file
+map <leader>t :call RunThisSpecFile()<cr>
+" run last file again
+map <leader>r :call RunLastSpecFile()<cr>
+map <leader>T :call RunSpecFile('.')<cr>
+" run all spec files 
+map <leader>tc :Silent tback close<cr>
+
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+
+"turn off visual bell (white flash)
+set noeb vb t_vb=
+
+" set font for gvims over different systems
+if exists("&guifont")
+   if has("mac")
+     set guifont=Monaco:h12
+   elseif has("unix")
+     if &guifont == ""
+       set guifont=bitstream\ vera\ sans\ mono\ 11
+     endif
+   elseif has("win32")
+     set guifont=Consolas:h11,Courier\ New:h10
+   endif
+endif
+
+if has("gui_running")
+    set cursorline                  "Highlight background of current line
+    colorscheme solarized
+    set background=dark
+else
+    set cursorline                  "Highlight background of current line
+    if !has('gui_running') && $TERM_PROGRAM == 'Apple_Terminal'
+       let g:solarized_termcolors = &t_Co
+       let g:solarized_termtrans = 1
+       let g:solarized_contrast="high"  
+     endif
+
+     colorscheme solarized
+     set background=dark
+   endif
+
+   if filereadable($HOME.'/.vimrc_local')
+     source $HOME/.vimrc_local
+   endif
+
+   nnoremap <leader>ow <esc>:set wrap<cr>:set wrapmargin=10<cr>:set lbr<cr>:set formatoptions+=1<cr>
+   nnoremap <leader>cw <esc>:set nowrap<cr>
+
+   command! -nargs=1 Silent
+         \ | execute ':silent !'.<q-args>
+         \ | execute ':redraw!'
+

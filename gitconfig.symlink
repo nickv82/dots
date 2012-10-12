@@ -1,0 +1,46 @@
+[user]
+	name = npiv
+	email = nick.verlinde@gmail.com
+[github]
+	user = npiv82
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+  ui=auto
+[core]
+	editor = vim
+	excludesfile = /Users/npiv/.gitignore_global
+
+[branch "master"]
+  remote = origin
+  merge = master
+
+[merge]
+  tool = vimdiff
+
+[alias]
+  st = status
+  ci = commit
+  cim = commit -m
+  co = checkout
+  di = diff
+  dc = diff --cached
+  cimp = commit --amend -C HEAD
+  aa = add --all
+  head = !git log -1
+  ff = merge --ff-only
+  pullff = pull --ff-only
+  noff = merge --no-ff
+  fa = fetch --all
+  pom = push origin master
+  cob = checkout -b
+  b = branch
+  ds = diff --stat=160,120
+  dh1 = diff HEAD~1
+  d = difftool
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false

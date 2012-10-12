@@ -28,13 +28,6 @@ set spell                       " spell checking on
 set hidden                      " allow buffer switching without saving
 
 set backup                      " backups are nice ...
-if has('persistent_undo')
-    set dir=~/.vimswap//,/var/tmp//,/tmp//,.
-    set undofile                "so is persistent undo ...
-    set undolevels=1000         "maximum number of changes that can be undone
-    set undoreload=10000        "maximum number lines to save for undo on a buffer reload
-endif
-
 set tabpagemax=15               " only show 15 tabs
 set showmode                    " display the current mode
 

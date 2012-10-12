@@ -1,0 +1,46 @@
+#!/usr/bin/ruby
+
+def escaped file
+  unless file.start_with? "\""
+    file = "\"#{file}\""
+  end
+  file.gsub("'","\'")
+end
+
+def pad num
+  if num.to_i < 10 then "0000000#{num}" else "000000#{num}" end
+end
+
+def duration_seconds file
+  meta = %x(ffmpeg -i #{file} 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//)                                                                                                             
+  time_parts = meta.match /(\d\d):(\d\d):(\d\d)\.(\d\d)/
+  (time_parts[1].to_i*60*60+time_parts[2].to_i*60+time_parts[3].to_i+time_parts[4].to_f/100).to_i
+end
+
+def handle_file file, fname, shots=21
+  seconds = duration_seconds file
+  shotinterval = seconds / shots - 2
+  puts "file is #{seconds} seconds long, taking a shot every #{shotinterval} seconds "
+  %x{mplayer -vo png -sstep #{shotinterval} -frames 21 #{file}}
+
+  4.times do |i|
+    puts "convert +append #{(1..5).map { |num| "#{pad(1 + i*5 + num)}.png" }.find_all { |f| File.exist? f }.join " " } line#{i}.png"
+    %x{convert +append #{(1..5).map { |num| "#{pad(1 + i*5 + num)}.png" }.find_all { |f| File.exist? f }.join " " } line#{i}.png}
+  end
+  %x{convert -append #{(0..3).map { |num| "line#{num}.png" }.find_all { |f| File.exist? f }.join " " } -quality 35 -resize 2200x2200 #{fname}.jpg}
+
+  %x{rm *.png}
+end
+
+all = []
+ARGV.each do |file|
+  puts "handling file #{file}"
+  fname = File.basename(file.chomp(File.extname(file))).gsub(" ","_")
+  dirname = File.basename(File.dirname(file.gsub(" ","_")))
+  handle_file escaped(file), fname unless File.exist? "#{fname}.jpg" 
+  all << {:dirname=> dirname, :fname=> "#{fname}.jpg", :file=> file}
+end
+
+require 'rubygems'
+require 'json'
+File.open("all.json", "w") { |f| f.write "var all=#{all.to_json}" }

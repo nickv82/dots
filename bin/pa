@@ -1,0 +1,108 @@
+#!/usr/bin/ruby
+
+require 'yaml'
+
+Conf = {
+  :store   => File.expand_path("~/.parb.yml"),
+  :range   => 40,
+  :numbers => 3,
+  :rounds  => 1
+}
+
+def rnd
+  db = load_db.slice(0..40)
+  ordered =db.each_with_index.map { |e,i| [i] * (db.max-e)*2 << i }.flatten
+  r = ordered.shuffle.first 
+  if r < 10 then r = "0#{r}" end
+  r.to_s
+end
+
+def round
+  Conf[:numbers].times.map { rnd }
+end
+
+def clear
+  print "\e[2J\e[f"
+end
+
+def memorize game
+  clear
+  puts "memorizing ..."
+  game.each_with_index do |round,i|
+    puts "#{i}) #{round}"
+  end
+  puts
+  puts "press enter to continue ..."
+  STDIN.gets
+end
+
+def read_numbers n
+   print ": "
+   input = STDIN.gets.scan /\d{2}/
+   if input.length != n then
+     puts "error, invalid input"
+     read_numbers n
+   end
+   input
+end
+
+def recall game
+  clear
+  game.each_with_index.map do |round,i|
+    puts "#{i})"
+    input = read_numbers round.length 
+    round.zip input
+  end
+end
+
+def score result
+  clear
+  puts "score:"
+  result.each do |round|
+    correct = round.count { |e| e[0] == e[1] }
+    print "#{round.map {|x| x[0]}} == #{round.map {|x| x[1]}}"
+    puts "  #{correct}/#{round.length}"
+  end
+end
+
+def load_db
+  db = YAML.load File.read(Conf[:store])
+end
+
+def save results
+  unless File.exists?(Conf[:store]) then
+    File.open(Conf[:store],'w') { |f| f.write 100.times.map{0}.to_yaml }
+  end
+
+  db = load_db
+
+  results.each do |round|
+    round.each do |ans|
+      increment = -1
+      increment = 1 if ans[0] == ans[1] 
+      db[ans[0].to_i] = db[ans[0].to_i] + increment
+    end
+  end
+
+  File.open(Conf[:store],'w') { |f| f.write db.to_yaml }
+end
+
+def play
+  if (ARGV.length == 3) then
+    Conf[:range]    = ARGV[0].to_i
+    Conf[:numbers]  = ARGV[1].to_i
+    Conf[:rounds]   = ARGV[2].to_i
+  end
+
+  while true do
+    game = Conf[:rounds].times.map { round }
+    memorize(game) 
+    result = recall(game)
+    score(result)
+    save(result)
+    puts "Game over ... press any key to continue"
+    break if STDIN.gets =~ /q.*/
+  end
+end
+
+play

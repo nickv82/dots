@@ -1,0 +1,107 @@
+#!/usr/bin/ruby
+require 'yaml'
+require 'rubygems'
+require 'active_support'
+require 'active_support/core_ext'
+
+Global = {
+  :db_loc => File.expand_path("~/.calories.yml") # date, name, calories
+}
+
+def db
+  if File.exists? Global[:db_loc]
+    YAML.load(File.read(Global[:db_loc])) || []
+  else
+    []
+  end
+end
+
+def save(db)
+  File.open(Global[:db_loc],"w") { |f| f.write db.to_yaml }
+end
+
+def askForCalories name
+  if found = searchEntries(name).last then
+    puts "found #{found[1]} at #{found[2]} calories"
+    found
+  else
+    puts "nothing found, exiting"
+    exit
+  end
+end
+
+def addEntry(name,calories,date)
+  if calories == 0 then
+    template = askForCalories(name)
+    name = template[1]
+    calories = template[2]
+  end
+  update = db << [date,name,calories]
+  save(update)
+end
+
+def undo
+    update = db 
+    puts "undoing"
+    printEntry update.last
+    save(update.slice 0...update.length-1)
+end
+
+def printEntries list
+  list.each do |e|
+    printEntry e
+  end
+  puts sprintf "%-15s %-5d", "total", list.inject(0) { |mem,o| mem + o[2].to_i }
+end
+
+def printEntry e
+    puts sprintf "%-15s %-5d %s", e[0], e[2], e[1]
+end
+
+def searchEntries q
+  db.find_all { |d| d[1] =~ /#{q}/ }.uniq_by { |d| "#{d[1]}#{d[2]}" }
+end
+
+def listEntries from, to
+  db.find_all { |d| d[0] >= from.to_date && d[0] <= to.to_date }
+end
+
+def eval_arg arg
+  eval(arg) if arg
+end
+
+def run args
+  if args[0] == "a" then
+    day = eval_arg(args[3]) || Date.today
+    if args.length == 2 then
+      addEntry args[1],0,day.to_date
+    else
+      addEntry args[1], eval(args[2]), day.to_date
+    end
+  elsif args[0] == "s" then
+    grouped = db.group_by { |e| e[0] }.to_a
+    grouped.each do |e|
+      puts "#{e[0]} #{e[1].map { |el| el[2].to_i }.sum}"
+    end
+    puts "-" * 20
+    grouped  = grouped.slice 0...7
+    puts "avg: " + (grouped.map { |e| e[1].map { |el| el[2].to_i }.sum}.sum / grouped.length).to_s
+    grouped  = grouped.slice 0...5
+    puts "avg (without today): " + (grouped.map { |e| e[1].map { |el| el[2].to_i }.sum}.sum / grouped.length).to_s
+  elsif args[0] == "f" then
+    printEntries searchEntries args[1]
+  elsif args[0] == "u" then
+    undo 
+  elsif args[0] == "l"
+    from = eval_arg(args[1]) || Date.today
+    to = eval_arg(args[2]) || Date.today
+    printEntries listEntries from, to
+  elsif args[0] == "ll"
+    from = eval_arg(args[1]) || Date.today
+    printEntries listEntries from, from
+  else
+    run ["l"]
+  end
+end
+
+run ARGV

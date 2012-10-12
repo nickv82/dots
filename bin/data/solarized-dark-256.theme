@@ -1,0 +1,76 @@
+###############################################################################
+# Taskwarrior solarized-dark-256 theme created by Stefan A. Keel.
+#
+# For use with taskwarrior - a command line task list manager created by 
+# Paul Beckingham, Federico Hernandez. <http://taskwarrior.org>
+# 
+# Colors used are based on the Solarized palette created by Ethan Schoonover 
+# <http://ethanschoonover.com/solarized>
+#
+# Colors 0 through 15 in this theme are based on the 16 color positions defined
+# in the Xresources file distributed with the Solarized color palette.
+# # This theme was designed to work with a terminal application that is using
+# a Solarized "Dark" color theme, otherwise colors will look odd. 
+# Solarized includes themes for iTerm2, OSX Terminal.app, and Xresources.
+# Others are also available, i.e.:
+# Gnome Terminal <https://github.com/sigurdga/gnome-terminal-colors-solarized>
+#
+# This theme is free to use, modify, redistribute, or simply giggle at. It is 
+# distributed with absolutely no warranty of servicability or guarantee.
+#
+################################################################################
+color=on
+
+color.active=white on cyan
+# color.alternate=on color0
+color.alternate=
+
+color.blocked=color0 on color10
+
+color.history.add=white on cyan
+color.history.done=black on white
+color.history.delete=white on red
+
+color.burndown.pending=on blue
+color.burndown.started=on white
+color.burndown.done=inverse
+
+color.calendar.due=color0 on color9
+color.calendar.due.today=color0 on color1
+color.calendar.holiday=color0 on color3
+color.calendar.overdue=color0 on color5
+color.calendar.today=color0 on color4
+color.calendar.weekend=on color0
+color.calendar.weeknumber=color4
+
+color.label=bold white
+
+color.debug=color6
+color.due=on color0
+color.due.today=white on red
+color.overdue=white on red
+color.footnote=color6
+color.header=
+
+color.pri.H=white on color9
+color.pri.M=white on color3
+color.pri.L=white on color2
+color.pri.none=
+
+color.project.none=
+color.recurring=color4
+
+color.summary.background=on color0
+color.summary.bar=color0 on color6
+
+color.sync.added=color14
+color.sync.changed=color9
+color.sync.rejected=color13
+
+color.tag.none=color14
+color.tagged=color14
+
+color.undo.after=color2
+color.undo.before=color1
+
+rule.precedence.color=due.today,active,blocked,overdue,due,pri,keyword,project,tag,recurring,tagged,completed,deleted

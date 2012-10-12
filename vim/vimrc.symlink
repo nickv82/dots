@@ -203,20 +203,22 @@ set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 
-if has("gui_running")
-    set cursorline                  "Highlight background of current line
-    colorscheme solarized
-    set background=dark
-else
-    set cursorline                  "Highlight background of current line
-    if !has('gui_running') && $TERM_PROGRAM == 'Apple_Terminal'
-       let g:solarized_termcolors = &t_Co
-       let g:solarized_termtrans = 1
-       let g:solarized_contrast="high"  
-     endif
+if filereadable($HOME.'/dots/vim/vim.symlink/bundle/vim-colors-solarized/colors/solarized.vim')
+    if has("gui_running")
+        set cursorline                  "Highlight background of current line
+        colorscheme solarized
+        set background=dark
+    else
+        set cursorline                  "Highlight background of current line
+        if !has('gui_running') && $TERM_PROGRAM == 'Apple_Terminal'
+           let g:solarized_termcolors = &t_Co
+           let g:solarized_termtrans = 1
+           let g:solarized_contrast="high"  
+         endif
 
-     colorscheme solarized
-     set background=dark
+         colorscheme solarized
+         set background=dark
+    endif
 endif
 
 if filereadable($HOME.'/.vimrc_local')

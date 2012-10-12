@@ -12,8 +12,9 @@ plugins=(git osx)
 
 source $ZSH/oh-my-zsh.sh
 
-# Custom exports
-## Set EDITOR to /usr/bin/vim if Vim is installed
-if [ -f /usr/bin/vim ]; then
-    export EDITOR=/usr/bin/vim
-fi
+export LC_ALL=en_US.utf-8 
+export LANG="$LC_ALL"
+
+source ~/dots/sh/common.sh
+
+export LSCOLORS="exfxcxdxbxegedabagacad"

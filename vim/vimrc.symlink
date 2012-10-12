@@ -1,63 +1,83 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
+set nocompatible        " must be first line
 
-set rtp+=~/.vim/bundle/vundle/
+" Smart Copy paste 
+if has ("unix") && "Darwin" != system("echo -n \"$(uname)\"")
+    " on Linux use + register for copy-paste
+    set clipboard=unnamedplus
+else
+    " one mac and windows, use * register for copy-paste
+    set clipboard=unnamed
+endif
+
+
+" Vundle support {
+set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
+source ~/.vim/vundles.vim
 
-Bundle 'gmarik/vundle'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'kien/ctrlp.vim.git'
-Bundle 'tpope/vim-commentary.git'
-Bundle 'scrooloose/nerdtree.git'
-Bundle 'tpope/vim-surround.git'
-Bundle 'tpope/vim-fugitive.git'
-Bundle 'godlygeek/tabular.git'
-Bundle 'tpope/vim-eunuch.git'
-Bundle 'mileszs/ack.vim.git'
-Bundle 'SirVer/ultisnips'
-Bundle 'mattn/zencoding-vim.git'
-Bundle 'tpope/vim-rake.git'
-Bundle 'kchmck/vim-coffee-script.git'
-Bundle 'derekwyatt/vim-scala.git'
-Bundle 'orftz/sbd.vim'
-Bundle 'groenewege/vim-less'
-Bundle 'tpope/vim-endwise.git'
+
+filetype plugin indent on   " Automatically detect file types.
+syntax on                   " syntax highlighting
+set mouse=a                 " automatically enable mouse usage
+scriptencoding utf-8
+
+set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
+set virtualedit=onemore         " allow for cursor beyond last character
+set history=1000                " Store a ton of history (default is 20)
+set spell                       " spell checking on
+set hidden                      " allow buffer switching without saving
+
+set backup                      " backups are nice ...
+if has('persistent_undo')
+    set dir=~/.vimswap//,/var/tmp//,/tmp//,.
+    set undofile                "so is persistent undo ...
+    set undolevels=1000         "maximum number of changes that can be undone
+    set undoreload=10000        "maximum number lines to save for undo on a buffer reload
+endif
+
+set tabpagemax=15               " only show 15 tabs
+set showmode                    " display the current mode
+
+set cursorline                  " highlight current line
+
+if has('cmdline_info')
+    set ruler                   " show the ruler
+    set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
+    set showcmd                 " show partial commands in status line and
+                                " selected characters/lines in visual mode
+endif
+
+if has('statusline')
+    set laststatus=2
+
+    " Broken down into easily includeable segments
+    set statusline=%<%f\    " Filename
+    set statusline+=%w%h%m%r " Options
+    set statusline+=%{fugitive#statusline()} "  Git Hotness
+    set statusline+=\ [%{&ff}/%Y]            " filetype
+    set statusline+=\ [%{getcwd()}]          " current dir
+    set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+endif
+
+set backspace=indent,eol,start  " backspace for dummies
+set linespace=0                 " No extra spaces between rows
+set nu                          " Line numbers on
+set showmatch                   " show matching brackets/parenthesis
+set incsearch                   " find as you type search
+set hlsearch                    " highlight search terms
+set winminheight=0              " windows can be 0 line high
+set ignorecase                  " case insensitive search
+set smartcase                   " case sensitive when uc present
+set wildmenu                    " show list instead of just completing
+set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
+set scrolljump=5                " lines to scroll when cursor leaves screen
+set scrolloff=3                 " minimum lines to keep above and below cursor
+set foldenable                  " auto fold code
+set list
+set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
 
 let mapleader=";"           "Changes Leader key into a comma instead of a backslash
-" noremap , ;
-
-"------  Visual Options  ------
-set guioptions-=T          "remove toolbar
-syntax on                  "Enables syntax highlighting
-set nu                     "Enable Line Numbers
-set nowrap                 "Disable word wrap
-set vb                     "Visual bell instead of beeps
-set ruler                  "Displays cursor position on bottom right of screen
-set laststatus=2           "show the status line All the time
-set statusline=%<%f\ %h%m%r%=%{fugitive#statusline()}\ \ %-14.(%l,%c%V%)\ %P
-
-"------  Behavior  ------
-set backspace=indent,eol,start " backspace works like normal apps
-set tabstop=2                  " tab = 4 spaces
-set shiftwidth=2               " Indent to 2 spaces
-set hidden                     " Switch between unsaved buffers w/o needing to save, preserves history
-filetype indent on             " Syntax Highlight
-filetype plugin on             " Needed for snipMate
-set autoindent                 " Autoindent
-set expandtab                  " Use spaces instead of tabs
-set nobackup                   " no backup files
-set nowritebackup              " only in case you don't want a backup file while editing
-set noswapfile                 " no swap files
-"Ignore these files when completing names
-set wildignore=*/target/*,.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,tmp/*
-
-"------  Searching  ------
-set incsearch               "Search while typing
-set ignorecase              "Case Insensitive Searching
-set smartcase               "Lowercase = case insensitive, any uppercase = case sensitive
-set hlsearch                "Highlight all search results
-
-set timeoutlen=400          "default is 1000
 
 " disable ex mode, I do this too often by mistake
 noremap Q q
@@ -65,8 +85,6 @@ noremap Q q
 "cmd line mode
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
-cnoremap <a-left> <S-left>
-cnoremap <a-right> <S-right>
 
 "Following line clears the search highlights when pressing space
 nnoremap <space> :nohlsearch<cr>
@@ -93,21 +111,11 @@ map      <leader>sv       :source $MYVIMRC<cr>
 " ctrl v in insert mode pastes
 imap <c-v> <c-r>"
 
-"ulti snips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsListSnippets="<s-space>"
-let g:UltiSnipsSnippetDirectories=["providedsnippets", "mysnippets"]
-
-"add local tags location
-set tags+=~/code/rails/tags
-
 "easy visual mode indenting
 vnoremap < <gv
 vnoremap > >gv
-
-"Window Navigation with leader key
+" }
+" Window Nvaigation {
 function! WinMove(key) 
   let t:curwin = winnr()
   exec "wincmd ".a:key
@@ -120,7 +128,7 @@ function! WinMove(key)
     exec "wincmd ".a:key
   endif
 endfunction
- 
+
 map <leader>h              :call WinMove('h')<cr>
 map <leader>k              :call WinMove('k')<cr>
 map <leader>l              :call WinMove('l')<cr>
@@ -140,14 +148,16 @@ nmap <down>  :3wincmd -<cr>
 map <leader>wc :wincmd q<cr>
 map <leader>wr <C-W>r
 
-"_____ Plugin mappings _____
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
 
-"ulti snips
+" ulti snips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsListSnippets="<s-space>"
 
+let g:UltiSnipsSnippetDirectories=["providedsnippets", "mysnippets"]
 " controlp
 
 let g:ctrlp_map = '<leader>f'
@@ -175,69 +185,30 @@ nnoremap <silent> <leader>cab :call CloseAllBuffers()<cr>
 " more intuitive completion c-y to choose !
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 
+nmap <leader>1 :set foldlevel=0<CR>
+nmap <leader>2 :set foldlevel=1<CR>
+nmap <leader>3 :set foldlevel=2<CR>
+
 if has("autocmd")
-   " use html and sass for grails
- 	 autocmd BufNewFile,BufRead *.html.erb set ft=eruby.html
-	 autocmd BufNewFile,BufRead *.gsp set ft=html.gsp
- 	 autocmd BufNewFile,BufRead RakeFile set ft=ruby
+     autocmd BufNewFile,BufRead RakeFile set ft=ruby
 
-   " dont highlight markdown
-   " autocmd BufNewFile,BufRead *.markdown set ft=markdown
-   " autocmd BufNewFile,BufRead *.markdown set wrap
-   " autocmd BufNewFile,BufRead *.markdown set lbr
-endif
+     " dont highlight markdown
+     " autocmd BufNewFile,BufRead *.markdown set ft=markdown
+     " autocmd BufNewFile,BufRead *.markdown set wrap
+     " autocmd BufNewFile,BufRead *.markdown set lbr
+ endif
 
-"experimenting with tabs again
-nnoremap <leader>te :tabedit<cr>
-nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>] :tabnext<cr>
-nnoremap <leader>[ :tabprev<cr>
+set nowrap                      " wrap long lines
+set autoindent                  " indent at the same level of the previous line
+set shiftwidth=4                " use indents of 4 spaces
+set expandtab                   " tabs are spaces, not tabs
+set tabstop=4                   " an indentation every four columns
+set softtabstop=4               " let backspace delete indent
+set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
 
-"------ Ruby Run Tests -------
-let g:tback=1
-function! RunSpecFile(filename)
-	:w
-  if g:tback == 1
-    exec "Silent tback bundle exec rspec ".a:filename
-  else
-    exec "!clear; bundle exec rspec ".a:filename
-  end
-endfunction
-function! RunLastSpecFile()
-	call RunSpecFile(g:grb_test_file)
-endfunction
-function! RunThisSpecFile()
-	let  g:grb_test_file=@%
-	call RunSpecFile(g:grb_test_file)
-endfunction
-
-" Run this file
-map <leader>t :call RunThisSpecFile()<cr>
-" run last file again
-map <leader>r :call RunLastSpecFile()<cr>
-map <leader>T :call RunSpecFile('.')<cr>
-" run all spec files 
-map <leader>tc :Silent tback close<cr>
-
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
-set showmode
-
-"turn off visual bell (white flash)
-set noeb vb t_vb=
-
-" set font for gvims over different systems
-if exists("&guifont")
-   if has("mac")
-     set guifont=Monaco:h12
-   elseif has("unix")
-     if &guifont == ""
-       set guifont=bitstream\ vera\ sans\ mono\ 11
-     endif
-   elseif has("win32")
-     set guifont=Consolas:h11,Courier\ New:h10
-   endif
-endif
+" Remove trailing whitespaces and ^M chars
+autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 
 if has("gui_running")
     set cursorline                  "Highlight background of current line
@@ -253,16 +224,8 @@ else
 
      colorscheme solarized
      set background=dark
-   endif
+endif
 
-   if filereadable($HOME.'/.vimrc_local')
-     source $HOME/.vimrc_local
-   endif
-
-   nnoremap <leader>ow <esc>:set wrap<cr>:set wrapmargin=10<cr>:set lbr<cr>:set formatoptions+=1<cr>
-   nnoremap <leader>cw <esc>:set nowrap<cr>
-
-   command! -nargs=1 Silent
-         \ | execute ':silent !'.<q-args>
-         \ | execute ':redraw!'
-
+if filereadable($HOME.'/.vimrc_local')
+   source $HOME/.vimrc_local
+endif

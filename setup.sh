@@ -9,7 +9,7 @@ echo "making symlinks"
 ruby make_links.rb
 
 echo "installing bundles for vim"
-vim -c BundleInstall -q -q
+vim -c BundleInstall -c q -c q
 
 echo "setting zsh as default shell"
 chsh -s /usr/bin/zsh

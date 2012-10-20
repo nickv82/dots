@@ -12,5 +12,5 @@ echo "installing bundles for vim"
 vim -c BundleInstall -c q -c q
 
 echo "setting zsh as default shell"
-chsh -s /usr/bin/zsh
 zsh
+chsh -s /usr/bin/zsh

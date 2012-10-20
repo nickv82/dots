@@ -1,7 +1,7 @@
 # some useful aliases
-alias l="ls -G "
-alias ll="ls -ltrG "
-alias la="ls -ltrGa --color"
+alias l="ls -Gh "
+alias ll="ls -ltrGh"
+alias la="ls -ltrGa"
 
 alias gs="git status"
 alias cls="clear"

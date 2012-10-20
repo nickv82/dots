@@ -1,6 +1,6 @@
 set nocompatible        " must be first line
 
-" Smart Copy paste 
+" Smart Copy paste
 if has ("unix") && "Darwin" != system("echo -n \"$(uname)\"")
     " on Linux use + register for copy-paste
     set clipboard=unnamedplus
@@ -19,18 +19,20 @@ source ~/.vim/vundles.vim
 filetype plugin indent on   " Automatically detect file types.
 syntax on                   " syntax highlighting
 set mouse=a                 " automatically enable mouse usage
-scriptencoding utf-8
+scriptencoding=utf-8
+set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
 
-set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
-set virtualedit=onemore         " allow for cursor beyond last character
 set history=1000                " Store a ton of history (default is 20)
 set hidden                      " allow buffer switching without saving
-
 set tabpagemax=15               " only show 15 tabs
 set showmode                    " display the current mode
+set noswapfile
+
+"set list
+"set listchars=trail:`
 
 set cursorline                  " highlight current line
-set laststatus=2
+set laststatus=2                " always show status bar
 
 if has('cmdline_info')
     set ruler                   " show the ruler
@@ -42,20 +44,17 @@ endif
 set backspace=indent,eol,start  " backspace for dummies
 set linespace=0                 " No extra spaces between rows
 set nu                          " Line numbers on
-set showmatch                   " show matching brackets/parenthesis
 set incsearch                   " find as you type search
 set hlsearch                    " highlight search terms
 set winminheight=0              " windows can be 0 line high
 set ignorecase                  " case insensitive search
 set smartcase                   " case sensitive when uc present
 set wildmenu                    " show list instead of just completing
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.jpg,*.png,*.gif
 set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
-set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
 set scrolljump=5                " lines to scroll when cursor leaves screen
 set scrolloff=3                 " minimum lines to keep above and below cursor
 set foldenable                  " auto fold code
-set list
-set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
 
 let mapleader=";"           "Changes Leader key into a comma instead of a backslash
 
@@ -67,12 +66,11 @@ cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
 "Following line clears the search highlights when pressing space
+nnoremap <space><space> :nohlsearch<cr>
 nnoremap <space> :nohlsearch<cr>
 
 "navigation and pwd mappings
 noremap  <leader>cd       :lcd %:h<cr>
-map      <leader>e        :edit %h
-map      <leader>w        :write %h
 cnoremap %h               <C-R>=expand('%:h').'/'<cr>
 cnoremap %t               <C-R>=expand('%:t').'/'<cr>
 
@@ -82,27 +80,26 @@ noremap  <leader><leader> <C-^>
 "quick save and back to normal mode
 inoremap <c-f>            <esc>:w<cr>
 noremap  <c-f>            :w<cr>
-inoremap kj               <esc>
 
 "edit vimrc
 map      <leader>ev       :e ~/dots/vim/vimrc.symlink<cr>
 map      <leader>sv       :source $MYVIMRC<cr>
 
 " ctrl v in insert mode pastes
-imap <c-v> <c-r>"
+"imap <c-v> <c-r>"
 
 "easy visual mode indenting
 vnoremap < <gv
 vnoremap > >gv
 " }
 " Window Nvaigation {
-function! WinMove(key) 
+function! WinMove(key)
   let t:curwin = winnr()
   exec "wincmd ".a:key
   if (t:curwin == winnr()) "we havent moved
     if (match(a:key,'[jk]')) "were we going up/down
       wincmd v
-    else 
+    else
       wincmd s
     endif
     exec "wincmd ".a:key
@@ -138,13 +135,20 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsListSnippets="<s-space>"
 
 let g:UltiSnipsSnippetDirectories=["providedsnippets", "mysnippets"]
-" controlp
 
+" controlp
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_custom_ignore = '\v(_site)$'
 
-let g:CommandTAcceptSelectionVSplitMap = ['L']
-let g:CommandTAcceptSelectionSplitMap  = ['J']
+" easymotion
+"let g:EasyMotion_mapping_f = '_f'
+map  <space>l <space>w
+map  <space>L <space>W
+map  <space>h <space>b
+map  <space>H <space>B
+let g:EasyMotion_leader_key = '<space>'
 
 " Nerd Tree
 noremap  <leader>ot       :NERDTreeToggle<cr>
@@ -152,12 +156,12 @@ noremap  <leader>ct       :NERDTreeClose<cr>
 noremap  <leader>rt       :NERDTreeClose<cr><leader>cd:NERDTree<cr>
 noremap  <leader>cc       :NERDTreeFind<cr><C-W>l
 
-" Simple Buffer Close 
+" Simple Buffer Close
 nnoremap <silent> <leader>bc  :Sbd<cr>
 nnoremap <silent> <leader>bcc :Sbdm<cr>
 function! CloseAllBuffers()
   :set noconfirm
-  :bufdo Sbdm 
+  :bufdo Sbdm
   :set confirm
 endfunction
 nnoremap <silent> <leader>cab :call CloseAllBuffers()<cr>
@@ -179,16 +183,17 @@ if has("autocmd")
  endif
 
 set nowrap                      " wrap long lines
-set autoindent                  " indent at the same level of the previous line
+set autoindent                  " indent at the same level of the previous
 set shiftwidth=4                " use indents of 4 spaces
 set expandtab                   " tabs are spaces, not tabs
 set tabstop=4                   " an indentation every four columns
 set softtabstop=4               " let backspace delete indent
-set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+
+" save as root
+command WW :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+autocmd FileType c,cpp,java,php,javascript,python,xml,yml,ruby,vim autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 if filereadable($HOME.'/dots/vim/vim.symlink/bundle/vim-colors-solarized/colors/solarized.vim')
     if has("gui_running")
@@ -200,7 +205,7 @@ if filereadable($HOME.'/dots/vim/vim.symlink/bundle/vim-colors-solarized/colors/
         if !has('gui_running') && $TERM_PROGRAM == 'Apple_Terminal'
            let g:solarized_termcolors = &t_Co
            let g:solarized_termtrans = 1
-           let g:solarized_contrast="high"  
+           let g:solarized_contrast="high"
          endif
 
          colorscheme solarized

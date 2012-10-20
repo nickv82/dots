@@ -41,7 +41,7 @@ def addEntry(name,calories,date)
 end
 
 def undo
-    update = db 
+    update = db
     puts "undoing"
     printEntry update.last
     save(update.slice 0...update.length-1)
@@ -91,7 +91,7 @@ def run args
   elsif args[0] == "f" then
     printEntries searchEntries args[1]
   elsif args[0] == "u" then
-    undo 
+    undo
   elsif args[0] == "l"
     from = eval_arg(args[1]) || Date.today
     to = eval_arg(args[2]) || Date.today

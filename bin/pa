@@ -10,9 +10,9 @@ Conf = {
 }
 
 def rnd
-  db = load_db.slice(0..40)
+  db = load_db.slice(0..Conf[:range])
   ordered =db.each_with_index.map { |e,i| [i] * (db.max-e)*2 << i }.flatten
-  r = ordered.shuffle.first 
+  r = ordered.shuffle.first
   if r < 10 then r = "0#{r}" end
   r.to_s
 end
@@ -50,7 +50,7 @@ def recall game
   clear
   game.each_with_index.map do |round,i|
     puts "#{i})"
-    input = read_numbers round.length 
+    input = read_numbers round.length
     round.zip input
   end
 end
@@ -79,7 +79,7 @@ def save results
   results.each do |round|
     round.each do |ans|
       increment = -1
-      increment = 1 if ans[0] == ans[1] 
+      increment = 1 if ans[0] == ans[1]
       db[ans[0].to_i] = db[ans[0].to_i] + increment
     end
   end
@@ -96,7 +96,7 @@ def play
 
   while true do
     game = Conf[:rounds].times.map { round }
-    memorize(game) 
+    memorize(game)
     result = recall(game)
     score(result)
     save(result)

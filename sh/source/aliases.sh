@@ -22,3 +22,5 @@ alias x=tmux
 alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
 alias via="vim $dotshome/sh/common/aliases.sh"
+alias powerlab="ipython qtconsole --pylab=inline"
+alias pyclean="autopep8 --ignore=E302,E401 --max-line-length=100"

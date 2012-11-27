@@ -133,17 +133,17 @@ let g:ctrlp_custom_ignore = '\v(_site)$'
 
 " python settings
 let g:pymode_rope_autoimport_modules = ["os","shutil","datetime","functools","collections","itertools"]
-let g:pymode_lint_ignore = "E501,E401,W404,W391"
-let g:pymode_lint_checker = "pep8" 
+let g:pymode_lint_ignore = "E401,W404,W391, E501"
+let g:pymode_lint_checker = "pyflakes, pep8" 
 let g:pymode_lint_onfly = 1
-let g:pymode_lint = 0
-let g:pymode_doc = 0
+let g:pymode_lint = 1
+let g:pymode_doc = 1
 
 set autoread
 map <leader><c-f> <esc>:PyLintAuto<cr>:w<cr>:PyLint<cr>
 
 map <leader>rr <esc>:w<cr>:!clear; python %<cr>
-map <leader>t <esc>:w<cr>:!clear; py.test<cr>
+map <leader>t <esc>:w<cr>:!clear; py.test -q -l<cr>
 map <leader>rt <esc>:Pytest file looponfail<cr>
 
 " Nerd Tree

@@ -1,5 +1,5 @@
 # Explicitly configured $PATH variable
-source ~/.profile
+#source ~/.profile
 
 
 # Path to your oh-my-zsh configuration.

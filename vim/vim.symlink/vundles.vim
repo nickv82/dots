@@ -32,4 +32,5 @@ Bundle 'tpope/vim-rake.git'
 
 " python
 Bundle 'klen/python-mode.git'
-Bundle 'alfredodeza/pytest.vim.git'
+"Bundle 'alfredodeza/pytest.vim.git'
+Bundle 'https://github.com/ivanov/vim-ipython.git'

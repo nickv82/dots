@@ -1,20 +1,7 @@
-set nocompatible        " must be first line
-
-" Smart Copy paste
-if has ("unix") && "Darwin" != system("echo -n \"$(uname)\"")
-    " on Linux use + register for copy-paste
-    set clipboard=unnamedplus
-else
-    " one mac and windows, use * register for copy-paste
-    set clipboard=unnamed
-endif
-
-
-" Vundle support {
+set nocompatible        " must be first line 
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 source ~/.vim/vundles.vim
-
 
 filetype plugin indent on   " Automatically detect file types.
 syntax on                   " syntax highlighting
@@ -28,6 +15,7 @@ set tabpagemax=15               " only show 15 tabs
 set showmode                    " display the current mode
 set noswapfile
 
+" enable to show end of line spaces
 "set list
 "set listchars=trail:`
 
@@ -38,7 +26,6 @@ if has('cmdline_info')
     set ruler                   " show the ruler
     set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
     set showcmd                 " show partial commands in status line and
-                                " selected characters/lines in visual mode
 endif
 
 set backspace=indent,eol,start  " backspace for dummies
@@ -50,11 +37,17 @@ set winminheight=0              " windows can be 0 line high
 set ignorecase                  " case insensitive search
 set smartcase                   " case sensitive when uc present
 set wildmenu                    " show list instead of just completing
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.jpg,*.png,*.gif
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.jpg,*.png,*.gif,*.class,*.pyc
 set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
 set scrolljump=5                " lines to scroll when cursor leaves screen
 set scrolloff=3                 " minimum lines to keep above and below cursor
 set foldenable                  " auto fold code
+set nowrap                      " wrap long lines
+set autoindent                  " indent at the same level of the previous
+set shiftwidth=4                " use indents of 4 spaces
+set expandtab                   " tabs are spaces, not tabs
+set tabstop=4                   " an indentation every four columns
+set softtabstop=4               " let backspace delete indent
 
 let mapleader=";"           "Changes Leader key into a comma instead of a backslash
 
@@ -66,13 +59,13 @@ cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
 "Following line clears the search highlights when pressing space
-nnoremap <space><space> :nohlsearch<cr>
-nnoremap <space> :nohlsearch<cr>
+nnoremap <space> :nohlsearch<cr>:windo call Killscratch()<cr>
 
 "navigation and pwd mappings
 noremap  <leader>cd       :lcd %:h<cr>
 cnoremap %h               <C-R>=expand('%:h').'/'<cr>
 cnoremap %t               <C-R>=expand('%:t').'/'<cr>
+noremap  <leader>ee       :e <C-R>=expand('%:h').'/'<cr>
 
 "jump back and forth between buffers
 noremap  <leader><leader> <C-^>
@@ -85,14 +78,10 @@ noremap  <c-f>            :w<cr>
 map      <leader>ev       :e ~/dots/vim/vimrc.symlink<cr>
 map      <leader>sv       :source $MYVIMRC<cr>
 
-" ctrl v in insert mode pastes
-"imap <c-v> <c-r>"
-
 "easy visual mode indenting
 vnoremap < <gv
 vnoremap > >gv
-" }
-" Window Nvaigation {
+
 function! WinMove(key)
   let t:curwin = winnr()
   exec "wincmd ".a:key
@@ -104,6 +93,13 @@ function! WinMove(key)
     endif
     exec "wincmd ".a:key
   endif
+endfunction
+
+function! Killscratch()
+    let t:name = bufname(winbufnr(winnr()))
+    if (len(t:name) == 0)
+        wincmd q 
+    endif
 endfunction
 
 map <leader>h              :call WinMove('h')<cr>
@@ -128,33 +124,33 @@ map <leader>wr <C-W>r
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 
-" ulti snips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsListSnippets="<s-space>"
-
-let g:UltiSnipsSnippetDirectories=["providedsnippets", "mysnippets"]
-
 " controlp
+" PURGE f5
 let g:ctrlp_map = '<leader>f'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = '\v(_site)$'
 
-" easymotion
-"let g:EasyMotion_mapping_f = '_f'
-map  <space>l <space>w
-map  <space>L <space>W
-map  <space>h <space>b
-map  <space>H <space>B
-let g:EasyMotion_leader_key = '<space>'
+" python settings
+let g:pymode_rope_autoimport_modules = ["os","shutil","datetime","functools","collections","itertools"]
+let g:pymode_lint_ignore = "E401,W404,W391, E501"
+let g:pymode_lint_checker = "pyflakes, pep8" 
+let g:pymode_lint_onfly = 1
+let g:pymode_lint = 1
+let g:pymode_doc = 1
+
+set autoread
+map <leader><c-f> <esc>:PyLintAuto<cr>:w<cr>:PyLint<cr>
+
+map <leader>rr <esc>:w<cr>:!clear; python %<cr>
+map <leader>t <esc>:w<cr>:!clear; py.test -q -l<cr>
+map <leader>rt <esc>:Pytest file looponfail<cr>
 
 " Nerd Tree
-noremap  <leader>ot       :NERDTreeToggle<cr>
-noremap  <leader>ct       :NERDTreeClose<cr>
-noremap  <leader>rt       :NERDTreeClose<cr><leader>cd:NERDTree<cr>
-noremap  <leader>cc       :NERDTreeFind<cr><C-W>l
+let NERDTreeIgnore=['\.o$', '\~$', "\.pyc$", "__pycache__"]
+noremap  <leader>no       :NERDTreeToggle<cr>
+noremap  <leader>nc       :NERDTreeClose<cr>
+noremap  <leader>nf       :NERDTreeFind<cr><C-W>l
 
 " Simple Buffer Close
 nnoremap <silent> <leader>bc  :Sbd<cr>
@@ -169,50 +165,38 @@ nnoremap <silent> <leader>cab :call CloseAllBuffers()<cr>
 " more intuitive completion c-y to choose !
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 
+set foldlevel=1
 nmap <leader>1 :set foldlevel=0<CR>
 nmap <leader>2 :set foldlevel=1<CR>
 nmap <leader>3 :set foldlevel=2<CR>
 
 if has("autocmd")
      autocmd BufNewFile,BufRead RakeFile set ft=ruby
-
-     " dont highlight markdown
-     " autocmd BufNewFile,BufRead *.markdown set ft=markdown
-     " autocmd BufNewFile,BufRead *.markdown set wrap
-     " autocmd BufNewFile,BufRead *.markdown set lbr
  endif
 
-set nowrap                      " wrap long lines
-set autoindent                  " indent at the same level of the previous
-set shiftwidth=4                " use indents of 4 spaces
-set expandtab                   " tabs are spaces, not tabs
-set tabstop=4                   " an indentation every four columns
-set softtabstop=4               " let backspace delete indent
-
 " save as root
-command WW :execute ':silent w !sudo tee % > /dev/null' | :edit!
+command! WW :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,java,php,javascript,python,xml,yml,ruby,vim autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+"autocmd FileType c,cpp,java,php,javascript,python,xml,yml,ruby,vim autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
-if filereadable($HOME.'/dots/vim/vim.symlink/bundle/vim-colors-solarized/colors/solarized.vim')
-    if has("gui_running")
-        set cursorline                  "Highlight background of current line
-        colorscheme solarized
-        set background=dark
-    else
-        set cursorline                  "Highlight background of current line
-        if !has('gui_running') && $TERM_PROGRAM == 'Apple_Terminal'
-           let g:solarized_termcolors = &t_Co
-           let g:solarized_termtrans = 1
-           let g:solarized_contrast="high"
-         endif
+if has("gui_running")
+    set cursorline                  "Highlight background of current line
+    colorscheme solarized
+    set background=dark
+else
+    set cursorline                  "Highlight background of current line
+    if !has('gui_running') && $TERM_PROGRAM == 'Apple_Terminal'
+       let g:solarized_termcolors = &t_Co
+       let g:solarized_termtrans = 1
+       let g:solarized_contrast="high"
+     endif
 
-         colorscheme solarized
-         set background=dark
-    endif
+     colorscheme solarized
+     set background=dark
 endif
 
 if filereadable($HOME.'/.vimrc_local')
    source $HOME/.vimrc_local
 endif
+

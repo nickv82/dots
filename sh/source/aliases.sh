@@ -1,4 +1,6 @@
 # some useful aliases
+alias f=fg
+
 alias l="ls -Gh "
 alias ll="ls -ltrh"
 alias la="ls -ltra"
@@ -10,6 +12,7 @@ alias gl="gla -20"
 alias gll="gla --graph"
 alias grep="grep --color"
 alias vi=vim
+alias gpom="git push origin master"
 
 #rails aliases
 alias filldb="rake db:fixtures:load RAILS_ENV=test"
@@ -21,6 +24,15 @@ alias tbc="tback close"
 alias x=tmux
 alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
-alias via="vim $dotshome/sh/common/aliases.sh"
+alias via="vim $dotshome/sh/source/aliases.sh"
 alias powerlab="ipython qtconsole --pylab=inline"
 alias pyclean="autopep8 --ignore=E302,E401 --max-line-length=100"
+
+alias start_postgres="postgres -D /usr/local/var/postgres"
+alias pyg="pygmentize -f html -O full " $1
+
+alias count_commits=" git log | grep commit | wc -l"
+alias empty_spec_files='find . -name *_spec.rb | xargs grep -L "^ *it *[\"{]"'
+alias count_specs='find . -name *.rb | xargs grep -h  "^[ \S]*it" | wc -l'
+
+alias br=" echo "----------------------------------------------------------------""

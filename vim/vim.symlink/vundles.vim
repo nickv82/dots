@@ -3,7 +3,6 @@ Bundle 'gmarik/vundle'
 " pretty stuff
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'https://github.com/13k/vim-tomorrow.git'
 
 " indispensable
 Bundle 'kien/ctrlp.vim.git'
@@ -16,7 +15,6 @@ Bundle 'tpope/vim-eunuch.git'
 Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'derekwyatt/vim-scala.git'
 Bundle 'groenewege/vim-less'
-
 
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'mattn/zencoding-vim.git'
@@ -32,5 +30,4 @@ Bundle 'tpope/vim-rake.git'
 
 " python
 Bundle 'klen/python-mode.git'
-"Bundle 'alfredodeza/pytest.vim.git'
 Bundle 'https://github.com/ivanov/vim-ipython.git'

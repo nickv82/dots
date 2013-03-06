@@ -29,5 +29,4 @@ Bundle 'tpope/vim-endwise.git'
 Bundle 'tpope/vim-rake.git'
 
 " python
-Bundle 'klen/python-mode.git'
-Bundle 'https://github.com/ivanov/vim-ipython.git'
+Bundle 'https://github.com/davidhalter/jedi-vim.git'

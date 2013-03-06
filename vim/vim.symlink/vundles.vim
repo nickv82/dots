@@ -18,7 +18,7 @@ Bundle 'groenewege/vim-less'
 
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'mattn/zencoding-vim.git'
-Bundle 'orftz/sbd.vim'
+Bundle 'https://github.com/ollummis/sbd.vim.git'
 
 " meh
 Bundle 'tpope/vim-fugitive.git'

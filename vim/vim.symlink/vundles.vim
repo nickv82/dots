@@ -26,7 +26,7 @@ Bundle 'mileszs/ack.vim.git'
 
 " ruby
 Bundle 'tpope/vim-endwise.git'
-Bundle 'tpope/vim-rake.git'
 
 " python
+Bundle 'https://github.com/ervandew/supertab.git'
 Bundle 'https://github.com/davidhalter/jedi-vim.git'

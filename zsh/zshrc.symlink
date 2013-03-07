@@ -24,3 +24,10 @@ unsetopt correct_all
 # source my common bash aliases
 source ~/dots/sh/common.sh
 source $HOME/dots/zsh/myfunctions.zsh
+
+source ~/dots/z/z.sh
+
+if [ -f ~/.zshlocalrc ];
+then
+    source ~/.zshlocalrc
+fi

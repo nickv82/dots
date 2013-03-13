@@ -1,3 +1,8 @@
+# mkdir & cd to it
+function mcd() { 
+  mkdir -p "$1" && cd "$1"; 
+}
+
 # quickly cd to code/ or code/$1
 function c() { cd ~/code/$1; };
 
@@ -21,7 +26,7 @@ function puma() {
 }
 
 # count lines
-function countls() {
+function countlines() {
   cat $1 | wc -l 
 }
 

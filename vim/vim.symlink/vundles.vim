@@ -3,6 +3,7 @@ Bundle 'gmarik/vundle'
 " pretty stuff
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'wjakob/vim-tomorrow-night'
 
 " indispensable
 Bundle 'kien/ctrlp.vim.git'

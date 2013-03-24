@@ -5,7 +5,7 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM=$HOME/dots/zsh/zsh-custom
-ZSH_THEME="mytheme"
+ZSH_THEME="af-magic"
 COMPLETION_WAITING_DOTS="true"
 CASE_SENSITIVE=true
 plugins=(git osx)
@@ -16,7 +16,7 @@ export LC_ALL=en_US.utf-8
 export LANG="$LC_ALL"
 
 # better ls colors
-export LSCOLORS="exfxcxdxbxegedabagacad"
+#export LSCOLORS="exfxcxdxbxegedabagacad"
 
 # I dont like autocorrect anymore
 unsetopt correct_all

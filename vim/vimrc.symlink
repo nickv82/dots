@@ -182,7 +182,7 @@ else
        let g:solarized_contrast="high"
      endif
 
-     colorscheme solarized
+     colorscheme tomorrow-night
      set background=dark
 endif
 

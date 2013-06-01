@@ -5,7 +5,7 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM=$HOME/dots/zsh/zsh-custom
-ZSH_THEME="af-magic"
+ZSH_THEME="mytheme"
 COMPLETION_WAITING_DOTS="true"
 CASE_SENSITIVE=true
 plugins=(git osx)

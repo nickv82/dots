@@ -1,9 +1,9 @@
 # some useful aliases
 alias f=fg
 
-alias l="ls -Gh "
-alias ll="ls -ltrh"
-alias la="ls -ltra"
+alias l="ls -Gh --color=auto"
+alias ll="ls -ltrh --color=auto"
+alias la="ls -ltra --color=auto"
 
 alias gs="git status"
 alias cls="clear"

@@ -1,32 +1,25 @@
-# Explicitly configured $PATH variable
-#source ~/.profile
+# set up locations
+export DOTSHOME=$HOME/dots
+export ZHOME=$DOTSHOME/zsh
 
+# source config files
+source $ZHOME/config/checks.zsh
+source $ZHOME/config/colors.zsh
+source $ZHOME/config/setopt.zsh
+source $ZHOME/config/prompt.zsh
+source $ZHOME/config/exports.zsh
+source $ZHOME/config/bindings.zsh
+source $ZHOME/config/completions.zsh
 
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
-ZSH_CUSTOM=$HOME/dots/zsh/zsh-custom
-ZSH_THEME="mytheme"
-COMPLETION_WAITING_DOTS="true"
-CASE_SENSITIVE=true
-plugins=(git osx)
-source $ZSH/oh-my-zsh.sh
+# own aliases and functions
+source $ZHOME/aliases.sh
+source $ZHOME/functions.sh
+source $ZHOME/zfunctions.zsh
 
-# fix for encoding in vim
-export LC_ALL=en_US.utf-8 
-export LANG="$LC_ALL"
+# source z jumper script
+source $ZHOME/scripts/z.sh
 
-# better ls colors
-#export LSCOLORS="exfxcxdxbxegedabagacad"
-
-# I dont like autocorrect anymore
-unsetopt correct_all
-
-# source my common bash aliases
-source ~/dots/sh/common.sh
-source $HOME/dots/zsh/myfunctions.zsh
-
-source ~/dots/z/z.sh
-
+# if user has local zsh config parse here
 if [ -f ~/.zshlocalrc ];
 then
     source ~/.zshlocalrc

@@ -10,6 +10,7 @@ source $ZHOME/config/prompt.zsh
 source $ZHOME/config/exports.zsh
 source $ZHOME/config/bindings.zsh
 source $ZHOME/config/completions.zsh
+source $ZHOME/config/correction.zsh
 
 # own aliases and functions
 source $ZHOME/aliases.sh

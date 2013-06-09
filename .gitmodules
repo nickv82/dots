@@ -1,6 +1,0 @@
-[submodule "zsh/oh-my-zsh.symlink"]
-	path = zsh/oh-my-zsh.symlink
-	url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule "z"]
-	path = z
-	url = https://github.com/rupa/z.git

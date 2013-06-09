@@ -23,7 +23,7 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
 # list of completers to use
-zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+#zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
 
 zstyle ':completion:*' menu select=1 _complete _ignored _approximate
 
@@ -31,7 +31,7 @@ zstyle ':completion:*' menu select=1 _complete _ignored _approximate
 # zstyle ':completion:*:expand:*' tag-order all-expansions
 
 # match uppercase from lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # offer indexes before parameters in subscripts
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters

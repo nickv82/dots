@@ -1,9 +1,13 @@
 # some useful aliases
 alias f=fg
 
-alias l="ls -Gh --color=auto"
-alias ll="ls -ltrh --color=auto"
-alias la="ls -ltra --color=auto"
+LSCOLORPOSTFIX=""
+if [[ -n "$IS_LINUX" ]]; then
+    LSCOLORPOSTFIX=" --color=auto"
+fi
+alias l="ls -Gh$LSCOLORPOSTFIX"
+alias ll="ls -ltrh$LSCOLORPOSTFIX"
+alias la="ls -ltra$LSCOLORPOSTFIX"
 
 alias gs="git status"
 alias cls="clear"

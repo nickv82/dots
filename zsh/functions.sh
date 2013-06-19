@@ -1,16 +1,10 @@
+# mplayer
+function mplay() { mplayer -noconsolecontrols -quiet $* > /dev/null 2>&1 &; echo "done" }
+
 # mkdir & cd to it
 function mcd() { 
   mkdir -p "$1" && cd "$1"; 
 }
-
-# quickly cd to code/ or code/$1
-function c() { cd ~/code/$1; };
-
-# quickly cd to dotfiles/ or dotfiles/$1
-function cdd() { cd ~/dotfiles/$1; };
-
-# shortcut for bundle exec
-function be() { bundle exec $*; };
 
 # colored echos
 function echo1() { echo "$(tput setaf 1)$*$(tput sgr0)"; }

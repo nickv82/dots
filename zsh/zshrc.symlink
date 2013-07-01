@@ -25,3 +25,8 @@ if [ -f ~/.zshlocalrc ];
 then
     source ~/.zshlocalrc
 fi
+
+if [ -f ~/.profile ];
+then
+    source ~/.profile
+fi

@@ -141,13 +141,17 @@ unset -f git_compare_version
 
 ####### THEME START HERE #####################################################################
 
+export VIRTUAL_ENV_DISABLE_PROMPT='1'
+function vinfo {
+   [ $VIRTUAL_ENV ] && echo '|'`basename $VIRTUAL_ENV`'|'
+}
 
 if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
 # primary prompt
 PROMPT='
-$my_gray%n@%m%{$reset_color%}  $FG[032]%~  $(git_prompt_info) 
+$my_gray%n@%m%{$reset_color%}  $FG[032]%~  $(git_prompt_info)  $my_orange$(vinfo)
 $FG[009]%(!.#.»)%{$reset_color%} '
 #PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
 RPS1='${return_code}'
@@ -158,11 +162,7 @@ eval my_gray='$FG[246]'
 eval my_orange='$FG[214]'
 
 # right prompt
-export VIRTUAL_ENV_DISABLE_PROMPT='1'
-function vinfo {
-   [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
-}
-#RPROMPT='$(vinfo)$my_gray%n@%m%{$reset_color%}%'
+#RPROMPT='$(vinfo)%{$reset_color%}%'
 
 # git settings
 ZSH_THEME_GIT_PROMPT_PREFIX="$FG[012]("

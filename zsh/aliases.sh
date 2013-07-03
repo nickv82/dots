@@ -6,8 +6,8 @@ if [[ -n "$IS_LINUX" ]]; then
     LSCOLORPOSTFIX=" --color=auto"
 fi
 alias l="ls -Gh$LSCOLORPOSTFIX"
-alias ll="ls -ltrh$LSCOLORPOSTFIX"
-alias la="ls -ltra$LSCOLORPOSTFIX"
+alias ll="ls -Gltrh$LSCOLORPOSTFIX"
+alias la="ls -Gltra$LSCOLORPOSTFIX"
 
 alias gs="git status"
 alias cls="clear"

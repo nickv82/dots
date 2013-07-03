@@ -40,3 +40,5 @@ alias empty_spec_files='find . -name *_spec.rb | xargs grep -L "^ *it *[\"{]"'
 alias count_specs='find . -name *.rb | xargs grep -h  "^[ \S]*it" | wc -l'
 
 alias br=" echo "----------------------------------------------------------------""
+
+alias ya=yaourt

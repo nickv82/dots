@@ -172,7 +172,7 @@ command! WW :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 if has("gui_running")
     set cursorline                  "Highlight background of current line
-    colorscheme solarized
+    colorscheme Tomorrow-Night
     set background=dark
 else
     set cursorline                  "Highlight background of current line

@@ -65,3 +65,9 @@ function first_appearance() {
 function decolor() {
   sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"
 }
+
+function pakit() {
+  tar -xvf $1
+  cd ${1/.tar.gz/}
+  makepkg
+}

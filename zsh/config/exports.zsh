@@ -4,7 +4,7 @@
 #else
         #export TERM='xterm-color'
 #fi
-export TERM='xterm-256color'
+export TERM='screen-256color'
 export LC_ALL=en_US.utf-8 
 export LANG="$LC_ALL"
 

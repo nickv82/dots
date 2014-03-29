@@ -18,27 +18,22 @@ alias grep="grep --color"
 alias vi=vim
 alias gpom="git push origin master"
 
-#rails aliases
-alias filldb="rake db:fixtures:load RAILS_ENV=test"
-
-alias tb=tback
-alias tbb="tback bundle exec"
-alias tbc="tback close"
+alias aliases="vi $DOTSHOME/zsh/aliases.sh && source $DOTSHOME/zsh/aliases.sh"
 
 alias x=tmux
 alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
-alias via="vim $dotshome/sh/source/aliases.sh"
 alias powerlab="ipython qtconsole --pylab=inline"
-alias pyclean="autopep8 --ignore=E302,E401 --max-line-length=100"
 
-alias start_postgres="postgres -D /usr/local/var/postgres"
 alias pyg="pygmentize -f html -O full " $1
 
 alias count_commits=" git log | grep commit | wc -l"
-alias empty_spec_files='find . -name *_spec.rb | xargs grep -L "^ *it *[\"{]"'
 alias count_specs='find . -name *.rb | xargs grep -h  "^[ \S]*it" | wc -l'
 
 alias br=" echo "----------------------------------------------------------------""
 
-alias ya=yaourt
+alias d="sudo docker"
+alias dps="d ps"
+alias dpsa="dps -a"
+alias dpsA="dpsa | grep Exit"
+alias dpsArm="dpsa | grep Exit | awk '{print \$1}' | xargs sudo docker rm"

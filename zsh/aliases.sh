@@ -32,7 +32,10 @@ alias count_specs='find . -name *.rb | xargs grep -h  "^[ \S]*it" | wc -l'
 
 alias br=" echo "----------------------------------------------------------------""
 
-alias d="sudo docker"
+alias d="docker"
+if [[ -n "$IS_LINUX" ]]; then
+    alias d="sudo docker"
+fi
 alias dps="d ps"
 alias dpsa="dps -a"
 alias dpsA="dpsa | grep Exit"

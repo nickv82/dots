@@ -32,14 +32,13 @@ alias count_specs='find . -name *.rb | xargs grep -h  "^[ \S]*it" | wc -l'
 
 alias br=" echo "----------------------------------------------------------------""
 
-alias d="docker"
 if [[ -n "$IS_LINUX" ]]; then
-    alias d="sudo docker"
+    dock_prefix="sudo "
 fi
+alias d="$dock_prefix docker"
 alias dps="d ps"
 alias dpsa="dps -a"
 alias dpsA="dpsa | grep Exit"
-alias dpsArm="dpsa | grep Exit | awk '{print \$1}' | xargs docker rm"
-if [[ -n "$IS_LINUX" ]]; then
-    alias dpsArm="dpsa | grep Exit | awk '{print \$1}' | xargs sudo docker rm"
-fi
+alias dpsArm="dpsa | grep Exit | awk '{print \$1}' | xargs $dock_prefix docker rm"
+
+function bitbucket() { git clone git@bitbucket.org:npiv/${1}.git }

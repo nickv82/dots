@@ -39,4 +39,7 @@ fi
 alias dps="d ps"
 alias dpsa="dps -a"
 alias dpsA="dpsa | grep Exit"
-alias dpsArm="dpsa | grep Exit | awk '{print \$1}' | xargs sudo docker rm"
+alias dpsArm="dpsa | grep Exit | awk '{print \$1}' | xargs docker rm"
+if [[ -n "$IS_LINUX" ]]; then
+    alias dpsArm="dpsa | grep Exit | awk '{print \$1}' | xargs sudo docker rm"
+fi

@@ -14,11 +14,10 @@ Bundle 'tpope/vim-eunuch.git'
 Bundle 'tpope/vim-fugitive.git'
 
 " languages
+Bundle 'ekalinin/Dockerfile.vim.git'
 Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'derekwyatt/vim-scala.git'
 Bundle 'groenewege/vim-less'
 
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'mattn/zencoding-vim.git'
-Bundle 'https://github.com/ollummis/sbd.vim.git'
-

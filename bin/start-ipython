@@ -1,0 +1,3 @@
+#!/bin/sh
+tmux new-session -d -s ipython
+tmux send-keys -t ipython "ipython notebook --profile=npiv --pylab=inline /home/npiv/code" C-m

@@ -17,6 +17,8 @@ source $ZHOME/aliases.sh
 source $ZHOME/functions.sh
 source $ZHOME/zfunctions.zsh
 
+source $ZHOME/maven.zsh
+
 # source z jumper script
 source $ZHOME/scripts/z.sh
 

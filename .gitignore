@@ -1,3 +1,4 @@
 vim/vim.symlink/bundle
 vim/vim.symlink/view
 .DS_Store
+history.sqlite

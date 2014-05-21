@@ -1,0 +1,2 @@
+c()    { cd ~/code/$1; }
+_c()   { _files -W ~/code -/; }

@@ -1,34 +1,40 @@
-# set up locations
-export DOTSHOME=$HOME/dots
-export ZHOME=$DOTSHOME/zsh
+# shortcut to this dotfiles path is $ZSH
+export ZSH=$HOME/dots
 
-# source config files
-source $ZHOME/config/checks.zsh
-source $ZHOME/config/colors.zsh
-source $ZHOME/config/setopt.zsh
-source $ZHOME/config/prompt.zsh
-source $ZHOME/config/exports.zsh
-source $ZHOME/config/bindings.zsh
-source $ZHOME/config/completions.zsh
-source $ZHOME/config/correction.zsh
+# your project folder that we can `c [tab]` to
+export PROJECTS=~/code
 
-# own aliases and functions
-source $ZHOME/aliases.sh
-source $ZHOME/functions.sh
-source $ZHOME/zfunctions.zsh
-
-source $ZHOME/maven.zsh
-
-# source z jumper script
-source $ZHOME/scripts/z.sh
-
-# if user has local zsh config parse here
-if [ -f ~/.zshlocalrc ];
+# use .localrc for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+if [[ -a ~/.localrc ]]
 then
-    source ~/.zshlocalrc
+  source ~/.localrc
 fi
 
-if [ -f ~/.profile ];
-then
-    source ~/.profile
-fi
+# all of our zsh files
+typeset -U config_files
+config_files=($ZSH/**/*.zsh)
+
+# load the path files
+for file in ${(M)config_files:#*/path.zsh}
+do
+  source $file
+done
+
+# load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+do
+  source $file
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+# load every completion after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh}
+do
+  source $file
+done
+
+unset config_files

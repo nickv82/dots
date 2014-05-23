@@ -123,14 +123,8 @@ install_dotfiles () {
     done
 }
 
-info "installing vundle for vim"
-git clone http://github.com/gmarik/vundle.git vim/vim.symlink/bundle/vundle
-
 setup_gitconfig
 install_dotfiles
-
-info "installing bundles for vim"
-vim -c BundleInstall -c q -c q
 
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]

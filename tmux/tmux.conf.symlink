@@ -10,10 +10,15 @@ bind -n M-j select-pane -D
 bind -n M-k select-pane -U
 bind -n M-l select-pane -R
 
-bind -n M-Left resize-pane -L 5
-bind -n M-Down resize-pane -D 5
-bind -n M-Up resize-pane -U 5
-bind -n M-Right resize-pane -R 5
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+bind -r Left resize-pane -L 5
+bind -r Down resize-pane -D 5
+bind -r Up resize-pane -U 5
+bind -r Right resize-pane -R 5
 
 # Shift arrow to switch windows
 bind -n S-Left  previous-window

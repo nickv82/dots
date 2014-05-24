@@ -38,3 +38,5 @@ setopt HIST_REDUCE_BLANKS
 setopt complete_aliases
 
 zle -N newtab
+
+export EDITOR="vim"

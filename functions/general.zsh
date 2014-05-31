@@ -71,3 +71,5 @@ function pakit() {
   cd ${1/.tar.gz/}
   makepkg
 }
+
+function bitbucket() { git clone git@bitbucket.org:npiv/${1}.git }

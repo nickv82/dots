@@ -6,7 +6,7 @@
         name = Nick Verlinde
         email = nick.verlinde@gmail.com
 [credential]
-        helper = osxkeychain
+        ;helper = osxkeychain
 [alias]
         co = checkout
         promote = !$ZSH/bin/git-promote

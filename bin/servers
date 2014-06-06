@@ -1,5 +1,0 @@
-#!/bin/sh
-
-tmux new-session -n servers
-echo "weee"
-

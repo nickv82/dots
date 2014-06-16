@@ -2,6 +2,7 @@ Bundle 'gmarik/vundle'
 
 " pretty stuff
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-bufferline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'chriskempson/vim-tomorrow-theme'
 

@@ -4,22 +4,166 @@ call vundle#begin()
 source ~/.vim/vundles.vim
 call vundle#end()
 
-nnoremap <leader>bc :bd<CR>
+filetype plugin indent on   " Automatically detect file types.
+syntax on                   " syntax highlighting
+set mouse=a                 " automatically enable mouse usage
+scriptencoding=utf-8
+set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
+
+set history=1000                " Store a ton of history (default is 20)
+set hidden                      " allow buffer switching without saving
+set tabpagemax=15               " only show 15 tabs
+set showmode                    " display the current mode
+set noswapfile
+
+" enable to show end of line spaces
+"set list
+"set listchars=trail:`
+
+set cursorline                  " highlight current line
+set laststatus=2                " always show status bar
+
+if has('cmdline_info')
+    set ruler                   " show the ruler
+    set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " a ruler on steroids
+    set showcmd                 " show partial commands in status line and
+endif
+
+set backspace=indent,eol,start  " backspace for dummies
+set linespace=0                 " No extra spaces between rows
+set nu                          " Line numbers on
+set incsearch                   " find as you type search
+set hlsearch                    " highlight search terms
+set winminheight=0              " windows can be 0 line high
+set ignorecase                  " case insensitive search
+set smartcase                   " case sensitive when uc present
+set wildmenu                    " show list instead of just completing
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.jpg,*.png,*.gif,*.class,*.pyc
+set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
+set scrolljump=5                " lines to scroll when cursor leaves screen
+set scrolloff=3                 " minimum lines to keep above and below cursor
+set foldenable                  " auto fold code
+set nowrap                      " wrap long lines
+set autoindent                  " indent at the same level of the previous
+set shiftwidth=4                " use indents of 4 spaces
+set expandtab                   " tabs are spaces, not tabs
+set tabstop=4                   " an indentation every four columns
+set softtabstop=4               " let backspace delete indent
+
+let mapleader=";"           "Changes Leader key into a comma instead of a backslash
+
+" disable ex mode, I do this too often by mistake
+noremap Q q
+
+"cmd line mode
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+
+"Following line clears the search highlights when pressing space
+nnoremap <space> :nohlsearch<cr>:windo call Killscratch()<cr>
+
+"navigation and pwd mappings
+noremap  <leader>cd       :lcd %:h<cr>
+cnoremap %h               <C-R>=expand('%:h').'/'<cr>
+cnoremap %t               <C-R>=expand('%:t').'/'<cr>
+noremap  <leader>ee       :e <C-R>=expand('%:h').'/'<cr>
+
+"jump back and forth between buffers
+noremap  <leader><leader> <C-^>
+
+"quick save and back to normal mode
+inoremap <c-f>            <esc>:w<cr>
+noremap  <c-f>            :w<cr>
+
+"edit vimrc
+map      <leader>ev       :e ~/dots/vim/vimrc.symlink<cr>
+map      <leader>sv       :source $MYVIMRC<cr>
+
+"easy visual mode indenting
+vnoremap < <gv
+vnoremap > >gv
+
+function! WinMove(key)
+  let t:curwin = winnr()
+  exec "wincmd ".a:key
+  if (t:curwin == winnr()) "we havent moved
+    if (match(a:key,'[jk]')) "were we going up/down
+      wincmd v
+    else
+      wincmd s
+    endif
+    exec "wincmd ".a:key
+  endif
+endfunction
+
+function! Killscratch()
+    let t:name = bufname(winbufnr(winnr()))
+    if (len(t:name) == 0)
+        wincmd q 
+    endif
+endfunction
+
+map <leader>h              :call WinMove('h')<cr>
+map <leader>k              :call WinMove('k')<cr>
+map <leader>l              :call WinMove('l')<cr>
+map <leader>j              :call WinMove('j')<cr>
+map <leader>H              :wincmd H<cr>
+map <leader>K              :wincmd K<cr>
+map <leader>L              :wincmd L<cr>
+map <leader>J              :wincmd J<cr>
+
+"note these are inverted for up and left.
+" easy to think of as push, ie push left
+nmap <left>  :3wincmd <<cr>
+nmap <right> :3wincmd ><cr>
+nmap <up>    :3wincmd +<cr>
+nmap <down>  :3wincmd -<cr>
+
+map <leader>wc :wincmd q<cr>
+map <leader>wr <C-W>r
+
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+
+" controlp
+" PURGE f5
+let g:ctrlp_map = '<leader>f'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_custom_ignore = '\v(_site)$'
+
+set autoread
+map <leader>rr <esc>:w<cr>:!clear; python %<cr>
+map <leader>t <esc>:w<cr>:!clear; py.test -q -l<cr>
+map <leader>rt <esc>:Pytest file looponfail<cr>
+
+" Nerd Tree
+let NERDTreeIgnore=['\.o$', '\~$', "\.pyc$", "__pycache__"]
+noremap  <leader>no       :NERDTreeToggle<cr>
+noremap  <leader>nc       :NERDTreeClose<cr>
+noremap  <leader>nf       :NERDTreeFind<cr><C-W>l
+
+" Simple Buffer Close
+nnoremap <silent> <leader>bc  :Sbd<cr>
+nnoremap <silent> <leader>bcc :Sbdm<cr>
+function! CloseAllBuffers()
+  :set noconfirm
+  :bufdo Sbdm
+  :set confirm
+endfunction
+nnoremap <silent> <leader>cab :call CloseAllBuffers()<cr>
 
 " more intuitive completion c-y to choose !
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 
 set foldlevel=1
-nmap <leader>1 :b1<CR>
-nmap <leader>2 :b2<CR>
-nmap <leader>3 :b3<CR>
-nmap <leader>4 :b4<CR>
-nmap <leader>5 :b5<CR>
-nmap <leader>6 :b6<CR>
-nmap <leader>7 :b7<CR>
-nmap <leader>8 :b8<CR>
-nmap <leader>9 :b9<CR>
-nmap <leader>0 :b0<CR>
+nmap <leader>1 :set foldlevel=0<CR>
+nmap <leader>2 :set foldlevel=1<CR>
+nmap <leader>3 :set foldlevel=2<CR>
+
+if has("autocmd")
+     autocmd BufNewFile,BufRead RakeFile set ft=ruby
+ endif
 
 " save as root
 command! WW :execute ':silent w !sudo tee % > /dev/null' | :edit!
@@ -29,7 +173,7 @@ command! WW :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 if has("gui_running")
     set cursorline                  "Highlight background of current line
-    colorscheme Tomorrow-Night
+    colorscheme solarized
     set background=dark
 else
     set cursorline                  "Highlight background of current line
@@ -46,4 +190,3 @@ endif
 if filereadable($HOME.'/.vimrc_local')
    source $HOME/.vimrc_local
 endif
-

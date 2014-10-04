@@ -190,3 +190,6 @@ endif
 if filereadable($HOME.'/.vimrc_local')
    source $HOME/.vimrc_local
 endif
+
+set shortmess=a
+set cmdheight=2

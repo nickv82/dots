@@ -73,3 +73,5 @@ function pakit() {
 }
 
 function bitbucket() { git clone git@bitbucket.org:npiv/${1}.git }
+
+alias gopg="postgres -D /usr/local/var/postgres"

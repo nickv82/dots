@@ -1,22 +1,27 @@
-'core':
-  'themes': [
-    'seti-ui'
-    'base16-tomorrow-dark-theme'
-  ]
-  'ignoredNames': [
-    '*.pyc'
-  ]
-'atom-beautify':
-  '_analyticsUserId': '4db92f04-a106-426a-9bf8-f045b136c3f4'
-'exception-reporting':
-  'userId': '58b76047-44a3-519b-fbde-17dee35892ff'
-'welcome':
-  'showOnStartup': false
-'metrics':
-  'userId': '55cf1a036d5e07e135badaf2309d4b0e35cf9c3b'
-'editor':
-  'confirmCheckoutHeadRevision': false
-  'useHardwareAcceleration': false
-  'invisibles': {}
-'tree-view':
-  'hideIgnoredNames': true
+'global':
+  'core':
+    'themes': [
+      'seti-ui'
+      'base16-tomorrow-dark-theme'
+    ]
+    'ignoredNames': [
+      '*.pyc'
+    ]
+  'atom-beautify':
+    '_analyticsUserId': '4db92f04-a106-426a-9bf8-f045b136c3f4'
+  'exception-reporting':
+    'userId': '58b76047-44a3-519b-fbde-17dee35892ff'
+  'welcome':
+    'showOnStartup': false
+  'metrics':
+    'userId': '55cf1a036d5e07e135badaf2309d4b0e35cf9c3b'
+  'editor':
+    'confirmCheckoutHeadRevision': false
+    'useHardwareAcceleration': false
+    'invisibles': {}
+    'fontSize': 15
+    'fontFamily': 'Ubuntu Mono'
+    'tabLength': 1
+  'tree-view':
+    'hideIgnoredNames': true
+  'zentabs': {}

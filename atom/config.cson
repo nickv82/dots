@@ -14,7 +14,9 @@
       '**/.sass-cache'
       '**/*.iml'
     ]
-    'fuzzyFinder': {}
+    'disabledPackages': [
+      'git-diff'
+    ]
   'atom-beautify':
     '_analyticsUserId': '4db92f04-a106-426a-9bf8-f045b136c3f4'
   'exception-reporting':
@@ -24,10 +26,9 @@
   'metrics':
     'userId': '55cf1a036d5e07e135badaf2309d4b0e35cf9c3b'
   'editor':
-    'fontFamily': 'Monaco'
-    'fontSize': 14
+    'fontFamily': 'Consolas'
     'preferredLineLength': 100
-    'invisibles': {}
+    'fontSize': 15
   'tree-view':
     'hideIgnoredNames': true
   'linter': {}

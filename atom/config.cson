@@ -19,6 +19,7 @@
     ]
   'atom-beautify':
     '_analyticsUserId': '4db92f04-a106-426a-9bf8-f045b136c3f4'
+    'beautifyOnSave': true
   'exception-reporting':
     'userId': '58b76047-44a3-519b-fbde-17dee35892ff'
   'welcome':
@@ -26,12 +27,9 @@
   'metrics':
     'userId': '55cf1a036d5e07e135badaf2309d4b0e35cf9c3b'
   'editor':
-    'fontFamily': 'Consolas'
+    'fontFamily': 'Ubuntu Mono'
     'preferredLineLength': 100
-    'fontSize': 15
+    'invisibles': {}
   'tree-view':
     'hideIgnoredNames': true
   'linter': {}
-  'tree-view':
-    'hideIgnoredNames': true
-  'zentabs': {}

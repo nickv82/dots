@@ -32,3 +32,6 @@
   'tree-view':
     'hideIgnoredNames': true
   'linter': {}
+  'tree-view':
+    'hideIgnoredNames': true
+  'zentabs': {}

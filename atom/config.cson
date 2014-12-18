@@ -29,7 +29,7 @@
   'editor':
     'fontFamily': 'Ubuntu Mono'
     'preferredLineLength': 100
-    'invisibles': {}
+    'fontSize': 14
   'tree-view':
     'hideIgnoredNames': true
   'linter': {}

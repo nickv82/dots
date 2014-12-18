@@ -6,6 +6,9 @@
 @import url('http://fonts.googleapis.com/css?family=Inconsolata');
 /* Change code font */
 
+.container {
+    width:1300px !important;
+}
 .CodeMirror pre {
   font-family: 'Inconsolata', Consolas, monocco, monospace;
 }
@@ -14,7 +17,7 @@ div.input_area {
   background: rbga(0, 0, 0, 0.5);
 }
 div.text_cell {
-  max-width: 105ex;
+  /*max-width: 105ex;*/
   /* instead of 100%, */
 }
 div.text_cell_render {

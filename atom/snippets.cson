@@ -14,9 +14,42 @@
 #     'body': 'console.log $1'
 #
 
+{
 '.source.js':
- 'it should':
-  'prefix': 'it'
-  'body': 'it("$1", function() {\n
-    $2 \n
-   });'
+  'it should':
+    'prefix': 'it'
+    'body': """
+      it("$1", function() {
+        $2
+      });
+    """
+
+  'generic import':
+    'prefix': 'req'
+    'body': 'var $1 = require("$2")$3;'
+
+  'marty import':
+    'prefix': 'rmarty'
+    'body': 'var Marty = require("marty");'
+
+  'react import':
+    'prefix': 'rreact'
+    'body': 'var React = require("react");'
+
+  'marty create state mixin':
+    'prefix': 'mcsm'
+    'body': """
+      Marty.createStateMixin({
+        listenTo: $1,
+        getState: function () {
+          return {
+            $2: $3
+          };
+        }
+      });
+    """
+}
+# '.source.js':
+#   'var require':
+#     'prefix': 'vreq'
+#     'body': 'var $1 = require("$2")$3;'

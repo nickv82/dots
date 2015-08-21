@@ -2,7 +2,6 @@
   core:
     ignoredNames: [
       "*.pyc"
-      "**/dist"
       "**/bower_components"
       "**/node_modules"
       "**/.idea"
@@ -19,7 +18,7 @@
     ]
   "atom-beautify":
     _analyticsUserId: "4db92f04-a106-426a-9bf8-f045b136c3f4"
-    beautifyOnSave: true
+    beautifyEntireFileOnSave: false
   "exception-reporting":
     userId: "58b76047-44a3-519b-fbde-17dee35892ff"
   welcome:
@@ -27,14 +26,14 @@
   metrics:
     userId: "55cf1a036d5e07e135badaf2309d4b0e35cf9c3b"
   editor:
-    fontFamily: "Ubuntu Mono"
-    fontSize: 15
+    fontFamily: "Consolas"
     preferredLineLength: 100
     invisibles: {}
   "tree-view":
     hideIgnoredNames: true
   linter: {}
-  react:
-    jsxTagStartPattern: "(?x)((^|=|return)\\s*<([^!/?](?!.+?(</.+?>))))"
-    jsxComplexAttributePattern: "(?x)\\{ [^}\"']* $|\\( [^)\"']* $"
-    decreaseIndentForNextLinePattern: "(?x) />\\s*(,|;)?\\s*$ | ^\\s*\\S+.*</[-_\\.A-Za-z0-9]+>$"
+  react: {}
+  jshint:
+    supportLintingJsx: true
+  "linter-jshint":
+    jshintExecutablePath: "/usr/local/bin/jsxhint"

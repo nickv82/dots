@@ -7,7 +7,7 @@
 /* Change code font */
 
 .container {
-    width:1300px !important;
+    /*width:1300px !important;*/
 }
 .CodeMirror pre {
   font-family: 'Inconsolata', Consolas, monocco, monospace;

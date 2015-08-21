@@ -134,7 +134,7 @@ let g:ctrlp_custom_ignore = '\v(_site)$'
 
 set autoread
 map <leader>rr <esc>:w<cr>:!clear; python %<cr>
-map <leader>t <esc>:w<cr>:!clear; py.test -q -l<cr>
+map <leader>t <esc>:w<cr>:!clear; nosetests <cr>
 map <leader>rt <esc>:Pytest file looponfail<cr>
 
 " Nerd Tree

@@ -11,3 +11,11 @@ alias di="d images"
 alias diA="d images | grep \<none\>"
 alias diArm="diA | awk '{print \$3}' | xargs $dock_prefix docker rmi"
 
+if [[ -n "$IS_MAC" ]]; then
+    dockerup() {
+        sudo docker-machine start npiv;
+        eval $(sudo docker-machine env npiv);
+    }
+    alias dockerdown="sudo docker-machine stop npiv";
+fi
+

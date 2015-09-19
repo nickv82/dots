@@ -37,3 +37,10 @@
     supportLintingJsx: true
   "linter-jshint":
     jshintExecutablePath: "/usr/local/bin/jsxhint"
+  "atom-typescript": {}
+".source.ts.tsx":
+  editor:
+    preferredLineLength: 100
+".source.ts":
+  editor:
+    preferredLineLength: 100

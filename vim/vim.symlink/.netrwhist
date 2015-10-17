@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/Users/npiv/code/joldem/.git'
 let g:netrw_dirhist_2='/Users/npiv/code/joldem/joldem'
 let g:netrw_dirhist_3='/Users/npiv/Dropbox/ipython/tipton'
@@ -8,3 +8,4 @@ let g:netrw_dirhist_5='/opt/arconics/manualmanager/projectHome/TestAeroDocsUserG
 let g:netrw_dirhist_6='/Users/npiv/dots'
 let g:netrw_dirhist_7='/Users/npiv/code/mm/mm-server'
 let g:netrw_dirhist_8='/Users/npiv/Downloads'
+let g:netrw_dirhist_9='/Users/npiv/dots'

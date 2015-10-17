@@ -22,3 +22,9 @@ Bundle 'groenewege/vim-less'
 
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'mattn/emmet-vim.git'
+
+
+" snippets
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'

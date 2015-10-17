@@ -1,0 +1,2 @@
+alias gradle=./gradlew
+alias doCI=gradle -i -s clean assemble test jacocoTestReport --refresh-dependencies -PspaEnv=dev -PdeployURL=10.1.0.36  && gradle :mm-grids:mm-devlab-aerosync-grid:deploy -PspaEnv=dev -PdeployURL=10.1.0.36  && gradle :mm-grids:mm-devlab-accounts-grid:deploy -PspaEnv=dev -PdeployURL=10.1.0.36  && gradle :mm-grids:mm-devlab-mm-grid:deploy -PspaEnv=dev -PdeployURL=10.1.0.36  && gradle -i -s integTest -Denv=devlab -PspaEnv=dev -PdeployURL=10.1.0.36   && gradle -i -s testAts -PspaEnv=dev -PdeployURL=10.1.0.36

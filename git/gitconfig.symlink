@@ -13,6 +13,7 @@
         wtf     = !$ZSH/bin/git-wtf
         rank-contributors = !$ZSH/bin/git-rank-contributors
         count   = !git shortlog -sn
+	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
 [color]
         diff = auto
         status = auto

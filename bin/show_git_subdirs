@@ -1,0 +1,10 @@
+for file in `ls -d */`
+do
+    cd $file;
+    if [ -d .git ]; then
+        echo $file : $(git remote -v)
+    else
+        echo $file : not git
+    fi
+    cd ..
+done

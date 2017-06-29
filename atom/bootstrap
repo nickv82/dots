@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-for src in $(find ~/dots/atom/ -maxdepth 2 -name '*.*')
-do
-    fname=$(basename $src)
-    rm -f ~/.atom/$fname
-    ln -s ~/dots/atom/$fname ~/.atom/$fname
-done

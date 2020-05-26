@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-info "installing vundle for vim"
-git clone http://github.com/gmarik/vundle.git vim/vim.symlink/bundle/vundle
-
-info "installing bundles for vim"
-vim -c BundleInstall -c q -c q
-
